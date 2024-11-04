@@ -17,14 +17,18 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/api/gpt', async (req, res) => {
-    const { prompt } = req.body;
+    const { prompt, theme } = req.body;
 
     if (!prompt) {
         return res.status(400).json({ error: '질문을 입력해주세요' });
     }
 
+    if (!theme) {
+        return res.status(400).json({ error: 'theme 값을 입력해주세요' });
+    }
+
     try {
-        const systemPrompt = await fs.readFile('instructions.txt', 'utf-8');
+        const systemPrompt = await fs.readFile(`${theme}.txt`, 'utf-8');
 
         const response = await openai.chat.completions.create({
             model: 'gpt-4-turbo',
