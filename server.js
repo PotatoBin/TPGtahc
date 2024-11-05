@@ -31,7 +31,7 @@ app.post('/api/gpt', async (req, res) => {
         const systemPrompt = await fs.readFile(`${theme}.txt`, 'utf-8');
 
         const response = await openai.chat.completions.create({
-            model: 'gpt-4-turbo',
+            model: 'gpt-3.5-turbo-0125',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: prompt }
@@ -46,11 +46,11 @@ app.post('/api/gpt', async (req, res) => {
                         properties: {
                             answer_text: {
                                 type: "string",
-                                description: "The answer to the incoming question."
+                                description: "질문에 대한 답변. 2723년의 인공지능의 잘못된 추측"
                             },
                             question_text: {
                                 type: "string",
-                                description: "A follow-up question that the asker might want to ask."
+                                description: "answer text의 내용에 대한 전시를 관람하는 관람객 입장에서 할법한 반박 질문"
                             }
                         },
                         required: ["answer_text", "question_text"],
